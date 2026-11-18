@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Silvercode Studio — Free, open-source apps for the Mac</title>
+  <meta name="description" content="Silvercode Studio makes free, open-source apps for the Mac: Silverside, accurate CD ripping, with Silverbox and Silverplay coming soon.">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#17110b" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#e8dec9" media="(prefers-color-scheme: light)">
+  <link rel="canonical" href="https://silvercode.studio/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://silvercode.studio/">
+  <meta property="og:title" content="Silvercode Studio">
+  <meta property="og:description" content="Free, open-source apps for the Mac.">
+
+  <link rel="icon" type="image/png" href="images/icon.png">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Bricolage+Grotesque:wght@600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+  <!-- A theme chosen with the button wins over the system appearance; set it before the page draws. -->
+  <script>try { var t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+  <!-- tokens.css and site.css started as copies of Silverside's (docs/site/css), so the studio and the apps share one look. -->
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/site.css">
+  <style>
+    /* This page only: the app cards. Colors and radii still come from tokens.css. */
+    .apps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: 20px; }
+    .app-icon { width: 64px; height: 64px; border-radius: var(--radius-tile); filter: drop-shadow(var(--shadow-icon)); }
+    .app-icon--soon { display: flex; align-items: center; justify-content: center; background: var(--chip); border: 1px solid var(--line); color: var(--ink-3); filter: none; }
+    .app-icon--soon svg { width: 30px; height: 30px; }
+    .ss-chip--available { color: var(--verified); }
+    .ss-chip--soon { color: var(--ink-3); }
+    /* site.css gives nav buttons white text (for Silverside's blue Download); a ghost button needs ink. */
+    .nav-links a.ss-btn--ghost { color: var(--ink); }
+    .app-link { margin-top: auto; padding-top: 6px; font-weight: 600; color: var(--ink); }
+    .app-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+    .about { max-width: var(--container-text); display: flex; flex-direction: column; gap: 16px; color: var(--ink-2); font-size: 18px; text-wrap: pretty; }
+    .about a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
+    .about a:hover { text-decoration-color: currentColor; }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- The header and the hero share one grooves band, as on silverside.app. -->
+  <div class="ss-grooves">
+    <header class="gutter">
+      <nav class="nav wrap" aria-label="Main">
+        <a class="brand" href="/">
+          <img src="images/icon.png" alt="" width="30" height="30">
+          <span>Silvercode Studio</span>
+        </a>
+        <div class="nav-links">
+          <a class="nav-more" href="#apps">Apps</a>
+          <a class="nav-more" href="#about">About</a>
+          <!-- GitHub's mark, from its Octicons set (MIT). GitHub allows it for a link to an account. -->
+          <a class="nav-icon" href="https://github.com/SilvercodeStudio" aria-label="Silvercode Studio on GitHub" title="GitHub"><svg viewBox="0 0 16 16" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg></a>
+          <!-- Shown by js/site.js; without the script the page follows the system appearance. -->
+          <button class="nav-icon theme-btn" type="button" aria-label="Switch appearance" title="Switch appearance" hidden><svg class="icon-sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg><svg class="icon-moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button>
+          <a class="ss-btn ss-btn--ghost ss-btn--small" href="#support">Support</a>
+          <!-- On a phone the links above give way to this menu; it opens without the script too. -->
+          <details class="nav-menu">
+            <summary class="nav-icon" aria-label="Menu" title="Menu"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></summary>
+            <div class="nav-menu__panel">
+              <a href="#apps">Apps</a>
+              <a href="#about">About</a>
+              <a href="https://github.com/SilvercodeStudio"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>GitHub</a>
+              <button class="theme-btn" type="button" hidden><svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg><svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><span class="theme-btn__label">Appearance</span></button>
+            </div>
+          </details>
+        </div>
+      </nav>
+    </header>
+
+    <section class="hero-band" aria-labelledby="hero-title">
+      <div class="hero-stack">
+        <img class="hero-icon" src="images/icon.png" alt="Silvercode Studio icon: a floppy disk with a rainbow disc" width="120" height="120">
+        <h1 id="hero-title" class="ss-display hero-title">Free apps<br>for the Mac.</h1>
+        <p class="lead">Silvercode Studio makes free, open-source Mac apps: tools I wanted for myself, and hope you'll find useful too.</p>
+        <div class="actions">
+          <a class="ss-btn ss-btn--ghost" href="#apps">See the apps</a>
+        </div>
+      </div>
+      <div class="ss-iris edge-bottom" aria-hidden="true"></div>
+    </section>
+  </div>
+
+  <main id="main">
+    <section id="apps" class="section gutter" aria-labelledby="apps-title" style="padding-top: clamp(56px, 7vw, 96px);">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="ss-eyebrow">Apps</span>
+          <h2 id="apps-title" class="ss-display section-title">One out now, two on the way.</h2>
+        </div>
+        <div class="apps">
+          <article class="ss-card">
+            <div class="ss-card__head">
+              <img class="app-icon" src="images/silverside.png" alt="" width="64" height="64">
+              <span class="ss-chip ss-chip--available">Available</span>
+            </div>
+            <h3 class="ss-card__title">Silverside</h3>
+            <p class="ss-card__text">Accurate CD ripping. Every track is checked against AccurateRip and CUETools DB (CTDB), then named, tagged, and encoded for your library.</p>
+            <a class="app-link" href="https://silverside.app">silverside.app →</a>
+          </article>
+
+          <article class="ss-card">
+            <div class="ss-card__head">
+              <img class="app-icon" src="images/silverbox.png" alt="" width="64" height="64">
+              <span class="ss-chip ss-chip--soon">Coming soon</span>
+            </div>
+            <h3 class="ss-card__title">Silverbox</h3>
+            <p class="ss-card__text">An emulation launcher for eXoDOS and other collections.</p>
+          </article>
+
+          <article class="ss-card">
+            <div class="ss-card__head">
+              <!-- Swap for Silverplay's icon when it has one. -->
+              <div class="app-icon app-icon--soon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg></div>
+              <span class="ss-chip ss-chip--soon">Coming soon</span>
+            </div>
+            <h3 class="ss-card__title">Silverplay</h3>
+            <p class="ss-card__text">A player for the music files on your Mac, offline.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section gutter" aria-labelledby="about-title">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="ss-eyebrow">About</span>
+          <h2 id="about-title" class="ss-display section-title">One person, a few apps.</h2>
+        </div>
+        <div class="about">
+          <p>I'm Preston Landers. I've been an enterprise software engineer for a long time. Silvercode Studio is where I build the Mac apps I want for my own use, and share them.</p>
+          <p>Every app is free, and its code is open source on <a href="https://github.com/SilvercodeStudio">GitHub</a>. Questions and bug reports go to each app's GitHub issues; anything else to <a href="mailto:hello@silvercode.studio">hello@silvercode.studio</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="support" class="download gutter" aria-labelledby="support-title">
+      <div class="wrap download-panel ss-grooves">
+        <div class="ss-iris edge-top" aria-hidden="true"></div>
+        <img class="download-icon" src="images/icon.png" alt="" width="84" height="84" loading="lazy">
+        <h2 id="support-title" class="ss-display download-title">Support the studio.</h2>
+        <p class="lead">The apps are free. If one is useful to you, a tip is greatly appreciated. Thank you.</p>
+        <div class="actions">
+          <a class="ss-btn ss-btn--ghost" href="https://github.com/sponsors/SilvercodeStudio">Tip on GitHub Sponsors</a>
+          <!-- When Ko-fi is set up: <a class="ss-btn ss-btn--ghost" href="https://ko-fi.com/[NAME]">Tip on Ko-fi</a> -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer gutter">
+    <div class="wrap">
+      <div class="footer-brand">
+        <img src="images/icon.png" alt="" width="22" height="22" loading="lazy">
+        <span>© 2026 Preston Landers</span>
+      </div>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="https://silverside.app">Silverside</a>
+        <a href="mailto:hello@silvercode.studio">Contact</a>
+        <a href="https://github.com/sponsors/SilvercodeStudio">Sponsor</a>
+        <a href="https://github.com/SilvercodeStudio">GitHub</a>
+      </nav>
+    </div>
+  </footer>
+  <script src="js/site.js" defer></script>
+</body>
+</html>

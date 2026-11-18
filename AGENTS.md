@@ -6,12 +6,24 @@ This file provides guidance to coding agents when working with code in this repo
 
 This repo is the GitHub Pages site for `https://silvercode.studio`. Silvercode Studio is the umbrella organization for Preston's open-source apps. The site presents those projects.
 
-## Current state
+## Structure
 
-The repo is new. It has only `README.md` and no commits. There is no site generator, build step, linter, or test suite yet. When content or tooling is added, update this file with the real commands and structure. Do not assume a framework (for example, Jekyll) until one is present in the repo.
+The site is plain static HTML and CSS at the repo root, with no generator or framework. Do not add one (for example, Jekyll) unless asked.
 
-## GitHub Pages notes
+- `index.html` is the home page. It lists the apps as cards. Styles that only this page uses are in its `<style>` block.
+- `css/tokens.css` and `css/site.css` started as copies of Silverside's (`../Silverside/docs/site/css`), so the studio and the apps share one look. `site.css` no longer has Silverside's HDCD and DTS rules. When you change a shared rule, consider the same change in Silverside's copy.
+- `js/site.js` is the theme part and the phone-menu part of Silverside's `js/site.js`. It shows the theme buttons, sets `data-theme` on `<html>`, and keeps a choice in `localStorage` only while it differs from the system appearance. A short script in `<head>` applies the stored choice before the page draws. Without JavaScript, the page follows the system appearance.
+- Images: `images/icon.png` is the studio icon, and `images/apple-touch-icon.png` is the same picture. `images/silverbox.png` is the full-size Silverbox icon; the studio uses the Silverbox floppy disk as its own icon.
+- `.editorconfig` sets the style: LF line ends, a final newline, no spaces at line ends, and 2-space indents in HTML, CSS, and YAML.
 
-- The repo name `SilvercodeStudio.github.io` makes this an organization Pages site. GitHub publishes it from the default branch (`main`) unless the Pages settings say otherwise.
-- When Pages publishes from a branch, the custom domain `silvercode.studio` needs a `CNAME` file at the publish root that contains only `silvercode.studio`. Do not remove or rename it after it is added.
-- If the site is plain static HTML with no Jekyll, add an empty `.nojekyll` file at the publish root. Without it, GitHub runs Jekyll and skips files and folders that start with `_`.
+## Commands
+
+- `make site` serves the repo root at `http://localhost:8000`. Silverside's `make site` also uses port 8000; set `PORT=8001` to run both.
+- `make lint` reports broken local links in `*.html` (`scripts/check-links.pl`) and spaces or tabs at line ends.
+- `make build` copies the published files (`SITE_FILES` in the `Makefile`) to `_site/`.
+
+## Publishing
+
+`.github/workflows/pages.yml` runs `make lint` and `make build` on each push to `main`, then deploys `_site/` to GitHub Pages. A broken link stops the deploy. Only the files in `SITE_FILES` are published, so `README.md`, `AGENTS.md`, `Makefile`, and `scripts/` stay off the site. When you add a new top-level page or folder, `*.html` already covers pages; add a new folder to `SITE_FILES`.
+
+Because the workflow publishes the site, GitHub does not run Jekyll, and no `.nojekyll` file is needed. The custom domain is set in the repo's Settings › Pages; the workflow ignores `CNAME`, but it stays as a record of the domain.

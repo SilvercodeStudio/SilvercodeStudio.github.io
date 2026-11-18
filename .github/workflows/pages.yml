@@ -1,0 +1,38 @@
+# Publishes the site to GitHub Pages as https://silvercode.studio.
+# In the repository's Settings › Pages, set "Build and deployment" to "GitHub Actions", and set
+# the custom domain there: a Pages workflow does not read the CNAME file.
+name: Deploy silvercode.studio site
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "**.md"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v7
+      # A broken link stops the deploy.
+      - run: make lint
+      - run: make build
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v5
