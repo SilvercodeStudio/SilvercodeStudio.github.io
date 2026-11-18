@@ -1,0 +1,27 @@
+/* Silvercode Studio's own rules, on top of tokens.css and site.css (Silverside's look). Colors and
+   radii still come from tokens.css. */
+
+/* site.css gives nav buttons white text (for Silverside's blue Download); a ghost button needs ink. */
+.nav-links a.ss-btn--ghost { color: var(--ink); }
+.ss-chip--available { color: var(--verified); }
+.ss-chip--soon { color: var(--ink-3); }
+
+/* The home page: the app cards and the About text. */
+.apps, .tips { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: 20px; }
+.app-icon { width: 64px; height: 64px; border-radius: var(--radius-tile); filter: drop-shadow(var(--shadow-icon)); }
+.app-icon--soon { display: flex; align-items: center; justify-content: center; background: var(--chip); border: 1px solid var(--line); color: var(--ink-3); filter: none; }
+.app-icon--soon svg { width: 30px; height: 30px; }
+.app-link { margin-top: auto; padding-top: 6px; font-weight: 600; color: var(--ink); }
+.app-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+.about { max-width: var(--container-text); display: flex; flex-direction: column; gap: 16px; color: var(--ink-2); font-size: 18px; text-wrap: pretty; }
+.about a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
+.about a:hover { text-decoration-color: currentColor; }
+
+/* The sponsor page: one card for each way to tip, its button at the bottom. */
+.tips-section { padding-top: clamp(48px, 6vw, 72px); }
+.tips .ss-btn { margin-top: auto; align-self: flex-start; }
+.tips-note { max-width: var(--container-text); margin-top: clamp(32px, 4vw, 48px); color: var(--ink-2); text-wrap: pretty; }
+.tips-note a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
+.tips-note a:hover { text-decoration-color: currentColor; }
+/* The heading lines up with the cards' left edge, not the narrower text column. */
+.page-band--wide .wrap { max-width: var(--container); }
